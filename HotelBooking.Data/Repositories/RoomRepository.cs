@@ -26,7 +26,9 @@ namespace HotelBooking.Data.Repositories
 
         public Room Get(int id)
         {
-            throw new NotImplementedException();
+            // The FirstOrDefault method below returns null
+            // if there is no room with the specified Id.
+            return db.Room.FirstOrDefault(r => r.Id == id);
         }
 
         public IEnumerable<Room> GetAll()
@@ -36,7 +38,11 @@ namespace HotelBooking.Data.Repositories
 
         public void Remove(int id)
         {
-            throw new NotImplementedException();
+            // The Single method below throws an InvalidOperationException
+            // if there is not exactly one room with the specified Id.
+            var room = db.Room.Single(r => r.Id == id);
+            db.Room.Remove(room);
+            db.SaveChanges();
         }
     }
 }

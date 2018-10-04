@@ -22,7 +22,7 @@ namespace HotelBooking.UnitTests
                 new Room { Id=2, Description="B" },
             };
 
-            // Create fake RoomRepository
+            // Create fake RoomRepository. 
             fakeRoomRepository = new Mock<IRepository<Room>>();
 
             // Implement fake GetAll() method.
@@ -30,7 +30,7 @@ namespace HotelBooking.UnitTests
 
 
             // Implement fake Get() method.
-            fakeRoomRepository.Setup(x => x.Get(2)).Returns(rooms[1]);
+            //fakeRoomRepository.Setup(x => x.Get(2)).Returns(rooms[1]);
 
 
             // Alternative setup with argument matchers:
@@ -38,9 +38,15 @@ namespace HotelBooking.UnitTests
             // Any integer:
             //roomRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(rooms[1]);
 
-            // Integers from 1 to 2
-            //roomRepository.Setup(x => x.Get(It.Is<int>(id => id > 0 && id < 3))).Returns(rooms[1]);
+            // Integers from 1 to 2 (using a predicate)
+            // If the fake Get is called with an another argument value than 1 or 2,
+            // it returns null, which corresponds to the behavior of the real
+            // repository's Get method.
+            fakeRoomRepository.Setup(x => x.Get(It.Is<int>(id => id > 0 && id < 3))).Returns(rooms[1]);
+
+            // Integers from 1 to 2 (using a range)
             //roomRepository.Setup(x => x.Get(It.IsInRange<int>(1, 2, Range.Inclusive))).Returns(rooms[1]);
+
 
             // Create RoomsController
             controller = new RoomsController(fakeRoomRepository.Object);
@@ -87,6 +93,23 @@ namespace HotelBooking.UnitTests
             // Assert against the mock object
             fakeRoomRepository.Verify(x => x.Remove(It.IsAny<int>()), Times.Never());        
         }
+
+        [Fact]
+        public void DeleteConfirmed_WhenIdIsLargerThanTwo_RemoveThrowsException()
+        {
+            // Instruct the fake Remove method to throw an InvalidOperationException, if a room id that
+            // does not exist in the repository is passed as a parameter. This behavior corresponds to
+            // the behavior of the real repoository's Remove method.
+            fakeRoomRepository.Setup(x =>
+                    x.Remove(It.Is<int>(id => id < 1 || id > 2))).Throws<InvalidOperationException>();
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(() => controller.DeleteConfirmed(3));
+
+            // Assert against the mock object
+            fakeRoomRepository.Verify(x => x.Remove(It.IsAny<int>()));
+        }
+
 
     }
 }
