@@ -1,6 +1,5 @@
 using System;
-using HotelBooking.BusinessLogic;
-using HotelBooking.Models;
+using HotelBooking.Core;
 using HotelBooking.UnitTests.Fakes;
 using Xunit;
 
