@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HotelBooking.Core;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,13 +39,14 @@ namespace HotelBooking.WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            if (repository.Get(id) == null)
+            if (id > 0)
             {
-                return NotFound();
+                repository.Remove(id);
+                return NoContent();
             }
-
-            repository.Remove(id);
-            return NoContent();
+            else {
+                return BadRequest();
+            }
         }
 
     }
