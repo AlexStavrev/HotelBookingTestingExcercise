@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using HotelBooking.Core;
-using HotelBooking.UnitTests.Fakes;
 using HotelBooking.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -42,10 +41,10 @@ namespace HotelBooking.UnitTests
             // If the fake Get is called with an another argument value than 1 or 2,
             // it returns null, which corresponds to the behavior of the real
             // repository's Get method.
-            fakeRoomRepository.Setup(x => x.Get(It.Is<int>(id => id > 0 && id < 3))).Returns(rooms[1]);
+            //fakeRoomRepository.Setup(x => x.Get(It.Is<int>(id => id > 0 && id < 3))).Returns(rooms[1]);
 
             // Integers from 1 to 2 (using a range)
-            //roomRepository.Setup(x => x.Get(It.IsInRange<int>(1, 2, Range.Inclusive))).Returns(rooms[1]);
+            fakeRoomRepository.Setup(x => x.Get(It.IsInRange<int>(1, 2, Moq.Range.Inclusive))).Returns(rooms[1]);
 
 
             // Create RoomsController
@@ -82,7 +81,7 @@ namespace HotelBooking.UnitTests
             controller.Delete(1);
 
             // Assert against the mock object
-            fakeRoomRepository.Verify(x => x.Remove(It.IsAny<int>()));
+            fakeRoomRepository.Verify(x => x.Remove(1), Times.Once);
         }
 
         [Fact]
