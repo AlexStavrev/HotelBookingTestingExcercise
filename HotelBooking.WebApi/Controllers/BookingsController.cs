@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HotelBooking.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiController]
+    [Route("[controller]")]
     public class BookingsController : Controller
     {
         private IRepository<Booking> bookingRepository;
