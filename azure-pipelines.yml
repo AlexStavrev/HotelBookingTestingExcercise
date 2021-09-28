@@ -41,6 +41,12 @@ steps:
       verbose: false
       customCommand: install -g newman
 
+# Run HotelBooking.WebApi
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'run'
+    projects: 'HotelBooking.WebApi'
+
 # Postman API tests
 - task: CmdLine@2
   displayName: Command Line Script
