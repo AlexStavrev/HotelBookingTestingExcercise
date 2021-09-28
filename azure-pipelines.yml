@@ -45,4 +45,5 @@ steps:
 - task: CmdLine@2
   displayName: Command Line Script
   inputs:
-      script: newman run $(Build.SourcesDirectory)\Postman\HotelBooking.postman_collection.json -k
+    script: newman run $(Build.SourcesDirectory)/Postman/HotelBooking.postman_collection.json -k -r cli
+
