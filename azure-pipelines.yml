@@ -32,3 +32,17 @@ steps:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
+
+# Install Newman
+- task: Npm@1
+  displayName: Install Newman
+  inputs:
+      command: custom
+      verbose: false
+      customCommand: install -g newman
+
+# Postman API tests
+- task: CmdLine@2
+  displayName: Command Line Script
+  inputs:
+      script: newman run $(Build.SourcesDirectory)\Testing.postman_collection.json -x -k
