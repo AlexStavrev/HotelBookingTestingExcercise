@@ -24,7 +24,7 @@ steps:
   inputs:
     command: build
     projects: '**/*.csproj'
-    arguments: '--configuration Release' # Update this to match your need
+    arguments: '--configuration $(buildConfiguration)' # Update this to match your need
 
 # Test
 - task: DotNetCoreCLI@2
@@ -32,24 +32,3 @@ steps:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
-
-# Install Newman
-- task: Npm@1
-  displayName: Install Newman
-  inputs:
-      command: custom
-      verbose: false
-      customCommand: install -g newman
-
-# Run HotelBooking.WebApi
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'run'
-    projects: 'HotelBooking.WebApi'
-
-# Postman API tests
-- task: CmdLine@2
-  displayName: Command Line Script
-  inputs:
-    script: newman run $(Build.SourcesDirectory)/Postman/HotelBooking.postman_collection.json -k -r cli
-
