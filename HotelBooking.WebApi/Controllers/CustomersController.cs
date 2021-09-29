@@ -16,7 +16,7 @@ namespace HotelBooking.WebApi.Controllers
             repository = repos;
         }
 
-        // GET: api/customers
+        // GET: customers
         [HttpGet]
         public IEnumerable<Customer> Get()
         {
