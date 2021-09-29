@@ -34,11 +34,9 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
 
 # Run the Web API in the background
-- task: DotNetCoreCLI@2
+- task: CmdLine@2
   inputs:
-    command: 'run'
-    projects: 'HotelBooking.WebApi/HotelBooking.WebApi.csproj'
-    arguments: '&'
+    script: 'dotnet **/HotelBooking.WebApi.dll &'
 
 # Install Newman
 - task: Npm@1
