@@ -1,0 +1,6 @@
+﻿/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.Core/Entities/Booking.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.Core/Entities/Customer.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.Core/Entities/Room.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.Core/Interfaces/IBookingManager.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.Core/Interfaces/IRepository.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.Core/Services/BookingManager.cs

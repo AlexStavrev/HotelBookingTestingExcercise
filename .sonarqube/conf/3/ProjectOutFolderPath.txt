@@ -1,0 +1,1 @@
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/.sonarqube/out/3

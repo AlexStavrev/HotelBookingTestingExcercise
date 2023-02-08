@@ -1,0 +1,12 @@
+﻿/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/Controllers/BookingsController.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/Controllers/CustomersController.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/Controllers/RoomsController.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/Program.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/obj/Debug/HotelBooking.WebApi.GlobalUsings.g.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/obj/Debug/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/obj/Debug/HotelBooking.WebApi.AssemblyInfo.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/obj/Debug/HotelBooking.WebApi.MvcApplicationPartsAssemblyInfo.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/appsettings.Development.json
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/appsettings.json
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/.DS_Store
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/Properties/launchSettings.json

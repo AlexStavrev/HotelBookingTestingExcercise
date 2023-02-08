@@ -1,0 +1,9 @@
+﻿/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.UnitTests/BookingManagerTests.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.UnitTests/Fakes/FakeBookingRepository.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.UnitTests/Fakes/FakeRoomRepository.cs
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.UnitTests/RoomsControllerTests.cs
+/Users/hk/.nuget/packages/microsoft.net.test.sdk/17.3.1/build/netcoreapp2.1/Microsoft.NET.Test.Sdk.Program.cs
+/Users/hk/.nuget/packages/xunit.runner.visualstudio/2.4.5/build/netcoreapp3.1/xunit.runner.visualstudio.dotnetcore.testadapter.dll
+/Users/hk/.nuget/packages/xunit.runner.visualstudio/2.4.5/build/netcoreapp3.1/xunit.runner.reporters.netcoreapp10.dll
+/Users/hk/.nuget/packages/xunit.runner.visualstudio/2.4.5/build/netcoreapp3.1/xunit.runner.utility.netcoreapp10.dll
+/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.UnitTests/.DS_Store

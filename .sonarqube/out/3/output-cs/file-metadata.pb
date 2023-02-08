@@ -1,0 +1,9 @@
+Å
+x/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/Controllers/BookingsController.csutf-8Ç
+y/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/Controllers/CustomersController.csutf-8~
+u/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/Controllers/RoomsController.csutf-8j
+a/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/Program.csutf-8í
+Ü/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/obj/Debug/HotelBooking.WebApi.GlobalUsings.g.csutf-8õ
+è/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/obj/Debug/.NETCoreApp,Version=v6.0.AssemblyAttributes.csutf-8ê
+Ñ/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/obj/Debug/HotelBooking.WebApi.AssemblyInfo.csutf-8£
+ó/Users/hk/Documents/Undervisning/Test/Solutions/HotelBooking_Clean/HotelBooking.WebApi/obj/Debug/HotelBooking.WebApi.MvcApplicationPartsAssemblyInfo.csutf-8
