@@ -34,12 +34,6 @@ steps:
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
-# Trust developer certificate
-- task: CmdLine@2
-  displayName: Trust developer certificate
-  inputs:
-    script: 'dotnet dev-certs https --trust'
-
 # Run the Web API in the background
 - task: CmdLine@2
   displayName: Run the WebApi in the background
@@ -57,4 +51,4 @@ steps:
 - task: CmdLine@2
   displayName: Run Postman tests
   inputs:
-    script: 'newman run $(Build.SourcesDirectory)/Postman/HotelBooking.postman_collection.json -r cli'
+    script: 'newman run $(Build.SourcesDirectory)/Postman/HotelBooking.postman_collection.json -k -r cli'
