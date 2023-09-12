@@ -12,8 +12,8 @@ public class BookingManager : IBookingManager
     // Constructor injection
     public BookingManager(IRepository<Booking> bookingRepository, IRepository<Room> roomRepository)
     {
-        this._bookingRepository = bookingRepository;
-        this._roomRepository = roomRepository;
+        _bookingRepository = bookingRepository;
+        _roomRepository = roomRepository;
     }
 
     public bool CreateBooking(Booking booking)
@@ -62,7 +62,7 @@ public class BookingManager : IBookingManager
 
         if (bookings.Any())
         {
-            for (DateTime d = startDate; d <= endDate; d = d.AddDays(1))
+            for (var d = startDate; d <= endDate; d = d.AddDays(1))
             {
                 var noOfBookings = from b in bookings
                                    where b.IsActive && d >= b.StartDate && d <= b.EndDate
