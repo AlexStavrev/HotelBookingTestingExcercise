@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using HotelBooking.Core;
+﻿using HotelBooking.Core;
 
-namespace HotelBooking.Mvc.Models
+namespace HotelBooking.Mvc.Models;
+
+public interface IBookingViewModel
 {
-    public interface IBookingViewModel
-    {
-        IEnumerable<Booking> Bookings { get; }
-        List<DateTime> FullyOccupiedDates { get; }
-        int YearToDisplay { get; set; }
-        string GetMonthName(int month);
-        bool DateIsOccupied(int year, int month, int day);
-    }
+    IEnumerable<Booking> Bookings { get; }
+    List<DateTime> FullyOccupiedDates { get; }
+    int YearToDisplay { get; set; }
+    string GetMonthName(int month);
+    bool DateIsOccupied(int year, int month, int day);
 }

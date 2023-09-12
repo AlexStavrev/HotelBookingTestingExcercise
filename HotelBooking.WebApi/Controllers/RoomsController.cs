@@ -1,68 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using HotelBooking.Core;
+﻿using HotelBooking.Core;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace HotelBooking.WebApi.Controllers
+namespace HotelBooking.WebApi.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class RoomsController : Controller
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class RoomsController : Controller
+    private readonly IRepository<Room> _repository;
+
+    public RoomsController(IRepository<Room> repos)
     {
-        private readonly IRepository<Room> repository;
+        _repository = repos;
+    }
 
-        public RoomsController(IRepository<Room> repos)
+    // GET: rooms
+    [HttpGet(Name = "GetRooms")]
+    public IEnumerable<Room> Get()
+    {
+        return _repository.GetAll();
+    }
+
+    // GET rooms/5
+    [HttpGet("{id}")]
+    public IActionResult Get(int id)
+    {
+        var item = _repository.Get(id);
+        if (item == null)
         {
-            repository = repos;
+            return NotFound();
+        }
+        return new ObjectResult(item);
+    }
+
+    // POST roooms
+    [HttpPost]
+    public IActionResult Post([FromBody] Room room)
+    {
+        if (room == null)
+        {
+            return BadRequest();
         }
 
-        // GET: rooms
-        [HttpGet(Name = "GetRooms")]
-        public IEnumerable<Room> Get()
+        _repository.Add(room);
+        return CreatedAtRoute("GetRooms", null);
+    }
+
+
+    // DELETE rooms/5
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        if (id > 0)
         {
-            return repository.GetAll();
+            _repository.Remove(id);
+            return NoContent();
         }
-
-        // GET rooms/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            var item = repository.Get(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-            return new ObjectResult(item);
+        else {
+            return BadRequest();
         }
-
-        // POST roooms
-        [HttpPost]
-        public IActionResult Post([FromBody] Room room)
-        {
-            if (room == null)
-            {
-                return BadRequest();
-            }
-
-            repository.Add(room);
-            return CreatedAtRoute("GetRooms", null);
-        }
-
-
-        // DELETE rooms/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            if (id > 0)
-            {
-                repository.Remove(id);
-                return NoContent();
-            }
-            else {
-                return BadRequest();
-            }
-        }
-
     }
 }

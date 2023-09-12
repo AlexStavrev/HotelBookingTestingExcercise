@@ -6,110 +6,109 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
-namespace HotelBooking.UnitTests
+namespace HotelBooking.UnitTests;
+
+public class RoomsControllerTests
 {
-    public class RoomsControllerTests
+    private readonly RoomsController _controller;
+    private readonly Mock<IRepository<Room>> _fakeRoomRepository;
+
+    public RoomsControllerTests()
     {
-        private RoomsController controller;
-        private Mock<IRepository<Room>> fakeRoomRepository;
-
-        public RoomsControllerTests()
+        var rooms = new List<Room>
         {
-            var rooms = new List<Room>
-            {
-                new Room { Id=1, Description="A" },
-                new Room { Id=2, Description="B" },
-            };
+            new Room { Id=1, Description="A" },
+            new Room { Id=2, Description="B" },
+        };
 
-            // Create fake RoomRepository. 
-            fakeRoomRepository = new Mock<IRepository<Room>>();
+        // Create fake RoomRepository. 
+        _fakeRoomRepository = new Mock<IRepository<Room>>();
 
-            // Implement fake GetAll() method.
-            fakeRoomRepository.Setup(x => x.GetAll()).Returns(rooms);
+        // Implement fake GetAll() method.
+        _fakeRoomRepository.Setup(x => x.GetAll()).Returns(rooms);
 
 
-            // Implement fake Get() method.
-            //fakeRoomRepository.Setup(x => x.Get(2)).Returns(rooms[1]);
+        // Implement fake Get() method.
+        //_fakeRoomRepository.Setup(x => x.Get(2)).Returns(rooms[1]);
 
 
-            // Alternative setup with argument matchers:
+        // Alternative setup with argument matchers:
 
-            // Any integer:
-            //fakeRoomRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(rooms[1]);
+        // Any integer:
+        //_fakeRoomRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(rooms[1]);
 
-            // Integers from 1 to 2 (using a predicate)
-            // If the fake Get is called with an another argument value than 1 or 2,
-            // it returns null, which corresponds to the behavior of the real
-            // repository's Get method.
-            //fakeRoomRepository.Setup(x => x.Get(It.Is<int>(id => id > 0 && id < 3))).Returns(rooms[1]);
+        // Integers from 1 to 2 (using a predicate)
+        // If the fake Get is called with an another argument value than 1 or 2,
+        // it returns null, which corresponds to the behavior of the real
+        // repository's Get method.
+        //_fakeRoomRepository.Setup(x => x.Get(It.Is<int>(id => id > 0 && id < 3))).Returns(rooms[1]);
 
-            // Integers from 1 to 2 (using a range)
-            fakeRoomRepository.Setup(x =>
-            x.Get(It.IsInRange<int>(1, 2, Moq.Range.Inclusive))).Returns(rooms[1]);
+        // Integers from 1 to 2 (using a range)
+        _fakeRoomRepository.Setup(x =>
+        x.Get(It.IsInRange<int>(1, 2, Moq.Range.Inclusive))).Returns(rooms[1]);
 
 
-            // Create RoomsController
-            controller = new RoomsController(fakeRoomRepository.Object);
-        }
+        // Create RoomsController
+        _controller = new RoomsController(_fakeRoomRepository.Object);
+    }
 
-        [Fact]
-        public void GetAll_ReturnsListWithCorrectNumberOfRooms()
-        {
-            // Act
-            var result = controller.Get() as List<Room>;
-            var noOfRooms = result.Count;
+    [Fact]
+    public void GetAll_ReturnsListWithCorrectNumberOfRooms()
+    {
+        // Act
+        var result = _controller.Get() as List<Room>;
+        var noOfRooms = result.Count;
 
-            // Assert
-            Assert.Equal(2, noOfRooms);
-        }
+        // Assert
+        Assert.Equal(2, noOfRooms);
+    }
 
-        [Fact]
-        public void GetById_RoomExists_ReturnsIActionResultWithRoom()
-        {
-            // Act
-            var result = controller.Get(2) as ObjectResult;
-            var room = result.Value as Room;
-            var roomId = room.Id;
+    [Fact]
+    public void GetById_RoomExists_ReturnsIActionResultWithRoom()
+    {
+        // Act
+        var result = _controller.Get(2) as ObjectResult;
+        var room = result.Value as Room;
+        var roomId = room.Id;
 
-            // Assert
-            Assert.InRange<int>(roomId, 1, 2);
-        }
+        // Assert
+        Assert.InRange<int>(roomId, 1, 2);
+    }
 
-        [Fact]
-        public void Delete_WhenIdIsLargerThanZero_RemoveIsCalled()
-        {
-            // Act
-            controller.Delete(1);
+    [Fact]
+    public void Delete_WhenIdIsLargerThanZero_RemoveIsCalled()
+    {
+        // Act
+        _controller.Delete(1);
 
-            // Assert against the mock object
-            fakeRoomRepository.Verify(x => x.Remove(1), Times.Once);
-        }
+        // Assert against the mock object
+        _fakeRoomRepository.Verify(x => x.Remove(1), Times.Once);
+    }
 
-        [Fact]
-        public void Delete_WhenIdIsLessThanOne_RemoveIsNotCalled()
-        {
-            // Act
-            controller.Delete(0);
+    [Fact]
+    public void Delete_WhenIdIsLessThanOne_RemoveIsNotCalled()
+    {
+        // Act
+        _controller.Delete(0);
 
-            // Assert against the mock object
-            fakeRoomRepository.Verify(x => x.Remove(It.IsAny<int>()), Times.Never());
-        }
+        // Assert against the mock object
+        _fakeRoomRepository.Verify(x => x.Remove(It.IsAny<int>()), Times.Never());
+    }
 
-        [Fact]
-        public void Delete_WhenIdIsLargerThanTwo_RemoveThrowsException()
-        {
-            // Instruct the fake Remove method to throw an InvalidOperationException, if a room id that
-            // does not exist in the repository is passed as a parameter. This behavior corresponds to
-            // the behavior of the real repoository's Remove method.
-            fakeRoomRepository.Setup(x =>
-                    x.Remove(It.Is<int>(id => id < 1 || id > 2))).
-                    Throws<InvalidOperationException>();
+    [Fact]
+    public void Delete_WhenIdIsLargerThanTwo_RemoveThrowsException()
+    {
+        // Instruct the fake Remove method to throw an InvalidOperationException, if a room id that
+        // does not exist in the repository is passed as a parameter. This behavior corresponds to
+        // the behavior of the real repoository's Remove method.
+        _fakeRoomRepository.Setup(x =>
+                x.Remove(It.Is<int>(id => id < 1 || id > 2))).
+                Throws<InvalidOperationException>();
 
-            // Assert
-            Assert.Throws<InvalidOperationException>(() => controller.Delete(3));
+        // Assert
+        Assert.Throws<InvalidOperationException>(() => _controller.Delete(3));
 
-            // Assert against the mock object
-            fakeRoomRepository.Verify(x => x.Remove(It.IsAny<int>()));
-        }
+        // Assert against the mock object
+        _fakeRoomRepository.Verify(x => x.Remove(It.IsAny<int>()));
     }
 }

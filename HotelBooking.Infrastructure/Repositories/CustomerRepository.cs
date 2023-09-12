@@ -3,40 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using HotelBooking.Core;
 
-namespace HotelBooking.Infrastructure.Repositories
+namespace HotelBooking.Infrastructure.Repositories;
+
+public class CustomerRepository : IRepository<Customer>
 {
-    public class CustomerRepository : IRepository<Customer>
+    private readonly HotelBookingContext _db;
+
+    public CustomerRepository(HotelBookingContext context)
     {
-        private readonly HotelBookingContext db;
+        _db = context;
+    }
 
-        public CustomerRepository(HotelBookingContext context)
-        {
-            db = context;
-        }
+    public void Add(Customer entity)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void Add(Customer entity)
-        {
-            throw new NotImplementedException();
-        }
+    public void Edit(Customer entity)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void Edit(Customer entity)
-        {
-            throw new NotImplementedException();
-        }
+    public Customer Get(int id)
+    {
+        throw new NotImplementedException();
+    }
 
-        public Customer Get(int id)
-        {
-            throw new NotImplementedException();
-        }
+    public IEnumerable<Customer> GetAll()
+    {
+        return _db.Customer.ToList();
+    }
 
-        public IEnumerable<Customer> GetAll()
-        {
-            return db.Customer.ToList();
-        }
-
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
+    public void Remove(int id)
+    {
+        throw new NotImplementedException();
     }
 }
