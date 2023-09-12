@@ -9,4 +9,5 @@ public interface IBookingViewModel
     int YearToDisplay { get; set; }
     string GetMonthName(int month);
     bool DateIsOccupied(int year, int month, int day);
+    bool DateHasAnyReservation(int year, int month, int day);
 }

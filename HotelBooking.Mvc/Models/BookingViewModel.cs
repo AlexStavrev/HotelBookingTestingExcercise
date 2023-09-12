@@ -56,6 +56,27 @@ public class BookingViewModel : IBookingViewModel
         return occupied;
     }
 
+    public bool DateHasAnyReservation(int year, int month, int day)
+    {
+        bool hasAnyBooking = false;
+        if (day <= DateTime.DaysInMonth(year, month))
+        {
+            var dt = new DateTime(year, month, day);
+            var occupiedDate = PartiallyOccupiedDates.FirstOrDefault(d => d == dt);
+            if (occupiedDate > DateTime.MinValue)
+                hasAnyBooking = true;
+        }
+        return hasAnyBooking;
+    }
+
+    public List<DateTime> PartiallyOccupiedDates
+    {
+        get
+        {
+            return _bookingManager.GetPartiallyOccupiedDates(MinBookingDate, MaxBookingDate);
+        }
+    }
+
     public List<DateTime> FullyOccupiedDates
     {
         get

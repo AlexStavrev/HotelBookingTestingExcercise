@@ -32,9 +32,13 @@
                 @Model.GetMonthName(month)
             </td>
 
+            
             @for (int day = 1; day <= 31; day++)
             {
-                <td @if (Model.DateIsOccupied(year, month, day)) { <text> class="bg-danger" </text>  }></td>
+                <td 
+                    @if (Model.DateIsOccupied(year, month, day)) { <text> class="bg-danger" </text>  }
+                    else if (Model.DateHasAnyReservation(year, month, day)) { <text> class="bg-warning" </text>  }
+                ></td>
             }
         </tr>
     }

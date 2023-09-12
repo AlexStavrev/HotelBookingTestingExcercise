@@ -74,4 +74,25 @@ public class BookingManager : IBookingManager
         return fullyOccupiedDates;
     }
 
+    public List<DateTime> GetPartiallyOccupiedDates(DateTime startDate, DateTime endDate)
+    {
+        if (startDate > endDate)
+            throw new ArgumentException("The start date cannot be later than the end date.");
+
+        var partiallyOccupiedDates = new List<DateTime>();
+        var bookings = _bookingRepository.GetAll();
+
+        if (bookings.Any())
+        {
+            for (var d = startDate; d <= endDate; d = d.AddDays(1))
+            {
+                var noOfBookings = from b in bookings
+                                   where b.IsActive && d >= b.StartDate && d <= b.EndDate
+                                   select b;
+                if (noOfBookings.Any())
+                    partiallyOccupiedDates.Add(d);
+            }
+        }
+        return partiallyOccupiedDates;
+    }
 }
