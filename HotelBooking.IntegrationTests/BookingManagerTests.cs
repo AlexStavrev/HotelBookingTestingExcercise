@@ -46,7 +46,7 @@ public class BookingManagerTests : IDisposable
     }
 
     [Fact]
-    public void FindAvailableRoom_RoomNotAvailable_RoomIdIsMinusOne()
+    public void FindAvailableRoom_Should_ReturnMinusOne_When_ThereAreNoAvailableRooms()
     {
         // Act
         var roomId = _bookingManager.FindAvailableRoom(DateTime.Today.AddDays(8), DateTime.Today.AddDays(8));
