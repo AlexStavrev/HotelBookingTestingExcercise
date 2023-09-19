@@ -43,6 +43,7 @@ public class BookingManagerTests
         Assert.NotEqual(-1, roomId);
     }
 
+    [Fact]
     public void FindAvailableRoom_RoomAvialable_ReturnsAvailableRoom()
     {
         // Arrange
