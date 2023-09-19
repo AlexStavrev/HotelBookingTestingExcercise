@@ -4,6 +4,7 @@ using HotelBooking.Core;
 using HotelBooking.Infrastructure.Repositories;
 using HotelBooking.UnitTests.Fakes;
 using Xunit;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HotelBooking.UnitTests;
 public class BookingManagerTests
@@ -61,5 +62,27 @@ public class BookingManagerTests
             );
 
         // Assert
+    }
+
+    [Fact]
+    public void ReserveRoomWithStartAndEndDate_ReturnsTrue()
+    {
+        //Arrange
+        DateTime dateStart = DateTime.Today.AddDays(1);
+        DateTime dateEnd = DateTime.Today.AddDays(3);
+
+        //Act
+
+        var newBooking = new Booking() 
+        {
+        StartDate = dateStart,
+        EndDate = dateEnd,
+        CustomerId = 1,
+        };
+
+        var createBooking = _bookingManager.CreateBooking(newBooking);
+
+        //Assert
+        Assert.True(createBooking);
     }
 }
