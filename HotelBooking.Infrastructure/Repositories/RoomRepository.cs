@@ -13,10 +13,11 @@ public class RoomRepository : IRepository<Room>
         _db = context;
     }
 
-    public void Add(Room entity)
+    public int Add(Room entity)
     {
         _db.Room.Add(entity);
         _db.SaveChanges();
+        return entity.Id;
     }
 
     public void Edit(Room entity)

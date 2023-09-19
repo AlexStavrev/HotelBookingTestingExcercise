@@ -63,9 +63,9 @@ public class BookingsController : Controller
     {
         if (ModelState.IsValid)
         {
-            bool created = _bookingManager.CreateBooking(booking);
+            int createdId = _bookingManager.CreateBooking(booking);
 
-            if (created)
+            if (createdId != -1)
             {
                 return RedirectToAction(nameof(Index));
             }

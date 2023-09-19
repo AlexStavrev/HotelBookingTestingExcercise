@@ -6,7 +6,7 @@ public interface IRepository<T>
 {
     IEnumerable<T> GetAll();
     T Get(int id);
-    void Add(T entity);
+    int Add(T entity);
     void Edit(T entity);
     void Remove(int id);
 }

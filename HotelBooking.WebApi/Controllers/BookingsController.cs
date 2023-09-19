@@ -49,9 +49,9 @@ public class BookingsController : Controller
             return BadRequest();
         }
 
-        bool created = _bookingManager.CreateBooking(booking);
+        int? createdId = _bookingManager.CreateBooking(booking);
 
-        if (created)
+        if (createdId != -1)
         {
             return CreatedAtRoute("GetBookings", null);
         }
@@ -97,7 +97,7 @@ public class BookingsController : Controller
             return NotFound();
         }
 
-        _bookingRepository.Remove(id);
+        _bookingManager.CancelCreatedReservation(id);
         return NoContent();
     }
 }

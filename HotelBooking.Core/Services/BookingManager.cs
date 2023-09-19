@@ -16,7 +16,7 @@ public class BookingManager : IBookingManager
         _roomRepository = roomRepository;
     }
 
-    public bool CreateBooking(Booking booking)
+    public int CreateBooking(Booking booking)
     {
         int roomId = FindAvailableRoom(booking.StartDate, booking.EndDate);
 
@@ -24,12 +24,12 @@ public class BookingManager : IBookingManager
         {
             booking.RoomId = roomId;
             booking.IsActive = true;
-            _bookingRepository.Add(booking);
-            return true;
+            int bookingId = _bookingRepository.Add(booking);
+            return bookingId;
         }
         else
         {
-            return false;
+            return -1;
         }
     }
 
@@ -94,5 +94,22 @@ public class BookingManager : IBookingManager
             }
         }
         return partiallyOccupiedDates;
+    }
+
+    public void CancelCreatedReservation(int bookingId)
+    {
+        var booking = _bookingRepository.Get(bookingId);
+        if(booking.IsActive == false)
+        {
+            _bookingRepository.Remove(bookingId);
+        }
+    }
+
+    public void ChangeReservation(Booking newBooking)
+    {
+        if (newBooking.IsActive == false)
+        {
+            _bookingRepository.Edit(newBooking);
+        }
     }
 }

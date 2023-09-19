@@ -14,10 +14,11 @@ public class BookingRepository : IRepository<Booking>
         _db = context;
     }
 
-    public void Add(Booking entity)
+    public int Add(Booking entity)
     {
         _db.Booking.Add(entity);
         _db.SaveChanges();
+        return entity.Id;
     }
 
     public void Edit(Booking entity)

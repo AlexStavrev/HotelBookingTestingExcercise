@@ -14,7 +14,7 @@ public class CustomerRepository : IRepository<Customer>
         _db = context;
     }
 
-    public void Add(Customer entity)
+    public int Add(Customer entity)
     {
         throw new NotImplementedException();
     }
