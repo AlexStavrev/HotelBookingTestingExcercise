@@ -53,7 +53,7 @@ public class BookingManagerTests
         // Act
         int roomId = _bookingManager.FindAvailableRoom(date, date);
 
-        var bookingForReturnedId = _bookingRepository.GetAll().Where(
+        var bookingForReturnedRoomId = _bookingRepository.GetAll().Where(
             booking =>
                 booking.RoomId == roomId
             &&  booking.StartDate <= date
@@ -62,6 +62,7 @@ public class BookingManagerTests
             );
 
         // Assert
+        Assert.Empty(bookingForReturnedRoomId);
     }
 
     [Fact]
