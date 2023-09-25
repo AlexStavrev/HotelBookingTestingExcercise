@@ -10,5 +10,6 @@ public interface IBookingManager
     List<DateTime> GetFullyOccupiedDates(DateTime startDate, DateTime endDate);
     List<DateTime> GetPartiallyOccupiedDates(DateTime startDate, DateTime endDate);
     void CancelCreatedReservation(int bookingId);
+    void RemoveCompletedReservation(int bookingId);
     void ChangeReservation(Booking newBooking);
 }

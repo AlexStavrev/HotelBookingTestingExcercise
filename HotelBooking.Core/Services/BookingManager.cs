@@ -104,6 +104,20 @@ public class BookingManager : IBookingManager
             _bookingRepository.Remove(bookingId);
         }
     }
+    public void RemoveCompletedReservation(int bookingId)
+    {
+        var booking = _bookingRepository.Get(bookingId);
+        var d = booking.EndDate;
+        d.AddDays(1);
+        if(booking.EndDate < d )
+        {
+            _bookingRepository.Remove(bookingId);
+        }
+        else
+        {
+            throw new ArgumentException("The reservation is not yet over");
+        }
+    }
 
     public void ChangeReservation(Booking newBooking)
     {

@@ -22,6 +22,8 @@ public class BookingManagerTests
             new Booking { Id = 2, StartDate = start, EndDate = end, IsActive = true, CustomerId = 1, RoomId = 1 },
             new Booking { Id = 3, StartDate = start, EndDate = end, IsActive = true, CustomerId = 2, RoomId = 2 },
             new Booking { Id = 4, StartDate = start, EndDate = end, IsActive = false, CustomerId = 1, RoomId = 3 },
+            new Booking { Id = 5, StartDate = DateTime.Today.AddDays(-5), EndDate = DateTime.Today, IsActive = false, CustomerId = 1, RoomId = 1 },
+
         };
         var rooms = new List<Room>
         {
@@ -163,6 +165,29 @@ public class BookingManagerTests
         // Arrage
         // Act
         _bookingManager.CancelCreatedReservation(2);
+        Action act = () => _fakeBookingRepository.Verify(bookingRepo => bookingRepo.Remove(It.IsAny<int>()), Times.Exactly(1));
+
+        // Assert
+        Assert.Throws<MockException>(act);
+    }
+    
+    [Fact]
+    public void DeleteCompletedReservation_ReservationIsComplete_ShouldDeleteReservationWhenItIsComplete()
+    {
+        // Arrage
+        // Act
+        _bookingManager.RemoveCompletedReservation(5);
+
+        // Assert
+        _fakeBookingRepository.Verify(bookingRepo => bookingRepo.Remove(It.IsAny<int>()), Times.Exactly(1));
+    }    
+    
+    [Fact]
+    public void CannotDeleteIncompleteReservation_ReservationIsNotComplete_ShouldNotDeleteReservationWhenItIsNotComplete()
+    {
+        // Arrage
+        // Act
+        _bookingManager.RemoveCompletedReservation(2);
         Action act = () => _fakeBookingRepository.Verify(bookingRepo => bookingRepo.Remove(It.IsAny<int>()), Times.Exactly(1));
 
         // Assert
