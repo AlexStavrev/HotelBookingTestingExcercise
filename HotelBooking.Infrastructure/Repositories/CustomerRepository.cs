@@ -19,7 +19,7 @@ public class CustomerRepository : IRepository<Customer>
         throw new NotImplementedException();
     }
 
-    public void Edit(Customer entity)
+    public bool Edit(Customer entity)
     {
         throw new NotImplementedException();
     }
@@ -34,7 +34,7 @@ public class CustomerRepository : IRepository<Customer>
         return _db.Customer.ToList();
     }
 
-    public void Remove(int id)
+    public bool Remove(int id)
     {
         throw new NotImplementedException();
     }

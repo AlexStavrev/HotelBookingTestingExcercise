@@ -96,33 +96,36 @@ public class BookingManager : IBookingManager
         return partiallyOccupiedDates;
     }
 
-    public void CancelCreatedReservation(int bookingId)
+    public bool CancelCreatedReservation(int bookingId)
     {
         var booking = _bookingRepository.Get(bookingId);
         if(booking.IsActive == false)
         {
-            _bookingRepository.Remove(bookingId);
+            return _bookingRepository.Remove(bookingId);
         }
+        return false;
     }
-    public void RemoveCompletedReservation(int bookingId)
+    public bool RemoveCompletedReservation(int bookingId)
     {
         var booking = _bookingRepository.Get(bookingId);
         var d = booking.EndDate;
-        if(booking.EndDate < d.AddDays(1) ) //perhaps adding & isActive = false for more params
+        if(booking.EndDate < d.AddDays(1) && booking.IsActive == false) //perhaps adding & isActive = false for more params
         {
-            _bookingRepository.Remove(bookingId);
+            return _bookingRepository.Remove(bookingId);
         }
-        else
-        {
-            throw new ArgumentException("The reservation is not yet over");
-        }
+        //else
+        //{
+        //    throw new argumentexception("the reservation is not yet over");
+        //}
+        return false;
     }
 
-    public void ChangeReservation(Booking newBooking)
+    public bool ChangeReservation(Booking newBooking)
     {
         if (newBooking.IsActive == false)
         {
-            _bookingRepository.Edit(newBooking);
+            return _bookingRepository.Edit(newBooking);
         }
+        return false;
     }
 }

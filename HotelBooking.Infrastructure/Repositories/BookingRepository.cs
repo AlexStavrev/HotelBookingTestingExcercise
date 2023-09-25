@@ -21,10 +21,11 @@ public class BookingRepository : IRepository<Booking>
         return entity.Id;
     }
 
-    public void Edit(Booking entity)
+    public bool Edit(Booking entity)
     {
         _db.Entry(entity).State = EntityState.Modified;
         _db.SaveChanges();
+        return true;
     }
 
     public Booking Get(int id)
@@ -37,10 +38,11 @@ public class BookingRepository : IRepository<Booking>
         return _db.Booking.Include(b => b.Customer).Include(b => b.Room).ToList();
     }
 
-    public void Remove(int id)
+    public bool Remove(int id)
     {
         var booking = _db.Booking.FirstOrDefault(b => b.Id == id);
         _db.Booking.Remove(booking);
         _db.SaveChanges();
+        return true;
     }
 }

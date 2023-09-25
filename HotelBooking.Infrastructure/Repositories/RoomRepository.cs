@@ -20,7 +20,7 @@ public class RoomRepository : IRepository<Room>
         return entity.Id;
     }
 
-    public void Edit(Room entity)
+    public bool Edit(Room entity)
     {
         throw new NotImplementedException();
     }
@@ -37,12 +37,13 @@ public class RoomRepository : IRepository<Room>
         return _db.Room.ToList();
     }
 
-    public void Remove(int id)
+    public bool Remove(int id)
     {
         // The Single method below throws an InvalidOperationException
         // if there is not exactly one room with the specified Id.
         var room = _db.Room.Single(r => r.Id == id);
         _db.Room.Remove(room);
         _db.SaveChanges();
+        return true;
     }
 }

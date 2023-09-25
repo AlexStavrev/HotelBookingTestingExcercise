@@ -41,16 +41,8 @@ public class BookingManagerTests
         _fakeBookingRepository.Setup(x => x.Add(It.IsAny<Booking>())).Callback((Booking booking) =>
             bookings.Add(booking)
         );
-        _fakeBookingRepository.Setup(x => x.Edit(It.IsAny<Booking>())).Callback((Booking newBooking) =>
-            {
-                int index = bookings.FindIndex(s => s.Id == newBooking.Id);
-                if (index != -1)
-                {
-                    bookings[index] = newBooking;
-                }
-            }
-        );
-
+        _fakeBookingRepository.Setup(x => x.Edit(It.IsAny<Booking>())).Returns(true);
+        _fakeBookingRepository.Setup(x => x.Remove(It.IsAny<int>())).Returns(true);
         var fakeRoomRepository = new Mock<IRepository<Room>>();
         fakeRoomRepository.Setup(x => x.GetAll()).Returns(rooms);
 
@@ -152,46 +144,52 @@ public class BookingManagerTests
     public void CancelCreatedReservation_ReservationIsNotActive_ShouldCancelReservationWhenItIsNotActive()
     {
         // Arrage
+        int validBookingId = 4;
+
         // Act
-        _bookingManager.CancelCreatedReservation(4);
+        var result = _bookingManager.CancelCreatedReservation(validBookingId);
 
         // Assert
-        _fakeBookingRepository.Verify(bookingRepo => bookingRepo.Remove(It.IsAny<int>()), Times.Exactly(1));
+        Assert.True(result);
     }
     
     [Fact]
     public void CannotCancelCreatedReservation_ReservationIsActive_ShouldNotCancelReservationWhenItIsActive()
     {
         // Arrage
+        int activeBookingId = 2;
+
         // Act
-        _bookingManager.CancelCreatedReservation(2);
-        Action act = () => _fakeBookingRepository.Verify(bookingRepo => bookingRepo.Remove(It.IsAny<int>()), Times.Exactly(1));
+        var result = _bookingManager.CancelCreatedReservation(activeBookingId);
 
         // Assert
-        Assert.Throws<MockException>(act);
+        Assert.False(result);
     }
     
     [Fact]
     public void DeleteCompletedReservation_ReservationIsComplete_ShouldDeleteReservationWhenItIsComplete()
     {
         // Arrage
+        int validReservationId = 5;
+
         // Act
-        _bookingManager.RemoveCompletedReservation(5);
+        var result = _bookingManager.RemoveCompletedReservation(validReservationId);
 
         // Assert
-        _fakeBookingRepository.Verify(bookingRepo => bookingRepo.Remove(It.IsAny<int>()), Times.Exactly(1));
+        Assert.True(result);
     }    
     
     [Fact]
     public void CannotDeleteIncompleteReservation_ReservationIsNotComplete_ShouldNotDeleteReservationWhenItIsNotComplete()
     {
         // Arrage
+        int incompleteBookingId = 2;
+
         // Act
-        _bookingManager.RemoveCompletedReservation(2);
-        Action act = () => _fakeBookingRepository.Verify(bookingRepo => bookingRepo.Remove(It.IsAny<int>()), Times.Exactly(1));
+        var result = _bookingManager.RemoveCompletedReservation(incompleteBookingId);
 
         // Assert
-        Assert.Throws<MockException>(act);
+        Assert.False(result);
     }
 
     [Fact]
@@ -201,10 +199,10 @@ public class BookingManagerTests
         var newBooking = new Booking { Id = 2, StartDate = DateTime.Today.AddDays(10), EndDate = DateTime.Today.AddDays(20), IsActive = false, CustomerId = 2, RoomId = 3 };
 
         // Act
-        _bookingManager.ChangeReservation(newBooking);
+        bool result = _bookingManager.ChangeReservation(newBooking);
 
         // Assert
-        _fakeBookingRepository.Verify(bookingRepo => bookingRepo.Edit(It.IsAny<Booking>()), Times.Exactly(1));
+        Assert.True(result);
     }
 
     [Fact]
@@ -214,10 +212,9 @@ public class BookingManagerTests
         var newBooking = new Booking { Id = 4, StartDate = DateTime.Today.AddDays(10), EndDate = DateTime.Today.AddDays(20), IsActive = true, CustomerId = 1, RoomId = 3 };
 
         // Act
-        _bookingManager.ChangeReservation(newBooking);
-        Action act = () => _fakeBookingRepository.Verify(bookingRepo => bookingRepo.Edit(It.IsAny<Booking>()), Times.Exactly(1));
+        bool result = _bookingManager.ChangeReservation(newBooking);
 
         // Assert
-        Assert.Throws<MockException>(act);
+        Assert.False(result);
     }
 }
