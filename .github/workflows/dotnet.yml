@@ -51,12 +51,23 @@ jobs:
           dotnet ${{ github.workspace }}/HotelBooking.WebApi/bin/${{ env.buildConfiguration }}/HotelBooking.WebApi.dll &
       - name: Wait for API to Start
         run: |
-          timeout 180s bash -c 'until curl -s -o /dev/null http://localhost:5000; do sleep 5; done'
-      - name: Install Postman CLI
-        run: |
-          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-      - name: Login to Postman CLI
-        run: postman login --with-api-key ${{ secrets.EASV_TEST_HotelBooking_PostmanKey }}
-      - name: Run API tests
-        run: |
-          postman collection run "17475573-4c81b259-1c6d-4d97-b256-01dc05f8bb76"
+          timeout 180s bash -c 'until curl -s -o /dev/null https://localhost:5001; do sleep 5; done'
+      
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman Collection
+        run: newman run ${{ github.workspace }}/Postman/HotelBooking.postman_collection.json -k -r cli
+#      - name: Install Postman CLI
+#        run: |
+#          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+#      - name: Login to Postman CLI
+#        run: postman login --with-api-key ${{ secrets.EASV_TEST_HotelBooking_PostmanKey }}
+#      - name: Run API tests
+#        run: |
+#          postman collection run "17475573-4c81b259-1c6d-4d97-b256-01dc05f8bb76"
