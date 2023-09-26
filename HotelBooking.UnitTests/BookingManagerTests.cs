@@ -165,9 +165,20 @@ public class BookingManagerTests
         // Assert
         Assert.False(result);
     }
-    
-    //todo cannot cancel expired reservation
-    
+
+    [Fact]
+    public void CancelCreatedReservation_CannotCancelAlreadyExpiredReservation()
+    {
+        // Arrage
+        int alreadyExpiredReservation = 5;
+
+        // Act
+        var result = _bookingManager.CancelCreatedReservation(alreadyExpiredReservation);
+
+        // Assert
+        Assert.False(result);
+    }
+
     [Fact]
     public void DeleteCompletedReservation_ReservationIsComplete_ShouldDeleteReservationWhenItIsComplete()
     {
@@ -193,8 +204,19 @@ public class BookingManagerTests
         // Assert
         Assert.False(result);
     }
-   
-    //todo cannoy delete reservation that hasnt started yet, cannot delete a reservation (today) that is in the future (tomorrow +)
+
+    [Fact]
+    public void RemoveCompletedReservation_CannotDeleteReservationThatHasNotStarted()
+    {
+        // Arrage
+        int futureReservation = 1;
+
+        // Act
+        var result = _bookingManager.RemoveCompletedReservation(futureReservation);
+
+        // Assert
+        Assert.False(result);
+    }
 
     [Fact]
     public void EditReservation_ReservationIsNotActive_ShouldEditReservationWhenItIsNotActive()
