@@ -11,6 +11,7 @@ on:
 
 env:
   buildConfiguration: 'Release'
+  ASPNETCORE_URLS: 'https://+:5001;http://+:5000'
 
 jobs:
   setup:
@@ -52,6 +53,7 @@ jobs:
       - name: Wait for API to Start
         run: |
           timeout 180s bash -c 'until curl -s -o /dev/null http://localhost:5000; do sleep 5; done'
+          timeout 180s bash -c 'until curl -s -o /dev/null http://localhost:5001; do sleep 5; done'
       
       - name: Install Node.js
         uses: actions/setup-node@v2
