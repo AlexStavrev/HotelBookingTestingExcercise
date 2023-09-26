@@ -35,4 +35,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Test
-      run: dotnet test ./HotelBooking.sln --no-build --verbosity normal
+      run: dotnet test ./HotelBooking.sln --verbosity normal
