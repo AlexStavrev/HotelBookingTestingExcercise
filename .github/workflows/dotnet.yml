@@ -40,7 +40,7 @@ jobs:
     - name: Test
       run: dotnet test ./HotelBooking.sln --verbosity normal
 
-  api-setup:
+  api-test:
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -49,12 +49,6 @@ jobs:
         run: |
           dotnet build ./HotelBooking.sln -c ${{ env.buildConfiguration }}
           dotnet ${{ github.workspace }}/HotelBooking.WebApi/bin/${{ env.buildConfiguration }}/HotelBooking.WebApi.dll &
-
-  test-api:
-    runs-on: ubuntu-latest
-    needs: api-setup
-    steps:
-      - uses: actions/checkout@v3
       - name: Install Postman CLI
         run: |
           curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
