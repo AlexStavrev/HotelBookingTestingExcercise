@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: Build and Run Web API
         run: |
-          dotnet build HotelBooking.WebApi.sln -c ${{ env.buildConfiguration }}
+          dotnet build HotelBooking.sln -c ${{ env.buildConfiguration }}
           dotnet ${{ github.workspace }}/HotelBooking.WebApi/bin/${{ env.buildConfiguration }}/HotelBooking.WebApi.dll &
 
   test-api:
