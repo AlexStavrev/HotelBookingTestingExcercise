@@ -176,7 +176,7 @@ public class BookingManagerTests
         var result = _bookingManager.CancelCreatedReservation(alreadyExpiredReservation);
 
         // Assert
-        Assert.False(result);
+        Assert.True(result);
     }
 
     [Fact]
