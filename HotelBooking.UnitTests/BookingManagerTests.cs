@@ -22,7 +22,7 @@ public class BookingManagerTests
             new Booking { Id = 2, StartDate = start, EndDate = end, IsActive = true, CustomerId = 1, RoomId = 1 },
             new Booking { Id = 3, StartDate = start, EndDate = end, IsActive = true, CustomerId = 2, RoomId = 2 },
             new Booking { Id = 4, StartDate = start, EndDate = end, IsActive = false, CustomerId = 1, RoomId = 3 },
-            new Booking { Id = 5, StartDate = DateTime.Today.AddDays(-5), EndDate = DateTime.Today, IsActive = false, CustomerId = 1, RoomId = 1 },
+            new Booking { Id = 5, StartDate = DateTime.Today.AddDays(-5), EndDate = DateTime.Today.AddDays(-1), IsActive = false, CustomerId = 1, RoomId = 1 },
 
         };
         var rooms = new List<Room>
@@ -166,6 +166,8 @@ public class BookingManagerTests
         Assert.False(result);
     }
     
+    //todo cannot cancel expired reservation
+    
     [Fact]
     public void DeleteCompletedReservation_ReservationIsComplete_ShouldDeleteReservationWhenItIsComplete()
     {
@@ -191,6 +193,8 @@ public class BookingManagerTests
         // Assert
         Assert.False(result);
     }
+   
+    //todo cannoy delete reservation that hasnt started yet, cannot delete a reservation (today) that is in the future (tomorrow +)
 
     [Fact]
     public void EditReservation_ReservationIsNotActive_ShouldEditReservationWhenItIsNotActive()

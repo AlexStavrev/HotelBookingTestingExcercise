@@ -99,7 +99,7 @@ public class BookingManager : IBookingManager
     public bool CancelCreatedReservation(int bookingId)
     {
         var booking = _bookingRepository.Get(bookingId);
-        if(booking.IsActive == false)
+        if(booking.StartDate > DateTime.Today && booking.IsActive == false)
         {
             return _bookingRepository.Remove(bookingId);
         }
@@ -108,8 +108,8 @@ public class BookingManager : IBookingManager
     public bool RemoveCompletedReservation(int bookingId)
     {
         var booking = _bookingRepository.Get(bookingId);
-        var d = booking.EndDate;
-        if(booking.EndDate < d.AddDays(1) && booking.IsActive == false) //perhaps adding & isActive = false for more params
+        
+        if(booking.EndDate <  DateTime.Today && booking.IsActive == false) //perhaps adding & isActive = false for more params
         {
             return _bookingRepository.Remove(bookingId);
         }
