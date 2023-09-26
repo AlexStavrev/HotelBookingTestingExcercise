@@ -44,6 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - uses: actions/checkout@v3
       - name: Build and Run Web API
         run: |
           dotnet build ./HotelBooking.sln -c ${{ env.buildConfiguration }}
