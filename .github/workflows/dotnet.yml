@@ -37,8 +37,15 @@ jobs:
     - name: Test
       run: dotnet test ./HotelBooking.sln --verbosity normal
 
+  api-setup:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - run: dotnet $(Build.SourcesDirectory)/HotelBooking.WebApi/bin/$(buildConfiguration)/HotelBooking.WebApi.dll &
+
   test-api:
     runs-on: ubuntu-latest
+    needs: api-setup
     steps:
       - uses: actions/checkout@v3
       - name: Install Postman CLI
