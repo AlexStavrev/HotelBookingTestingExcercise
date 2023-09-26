@@ -89,7 +89,7 @@ public class BookingsController : Controller
     }
 
     // DELETE bookings/5
-    [HttpDelete("{id}")]
+    [HttpDelete("reservation/{id}")]
     public IActionResult DeleteCancelledReservation(int id)
     {
         if (_bookingRepository.Get(id) == null)
