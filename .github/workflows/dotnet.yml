@@ -48,7 +48,10 @@ jobs:
       - name: Build and Run Web API
         run: |
           dotnet build ./HotelBooking.sln -c ${{ env.buildConfiguration }}
-          dotnet ${{ github.workspace }}/HotelBooking.WebApi/bin/${{ env.buildConfiguration }}/HotelBooking.WebApi.dll &
+          nohup dotnet ${{ github.workspace }}/HotelBooking.WebApi/bin/${{ env.buildConfiguration }}/HotelBooking.WebApi.dll &
+      - name: Wait for API to Start
+        run: |
+          timeout 180s bash -c 'until curl -s -o /dev/null http://localhost:5000; do sleep 5; done'
       - name: Install Postman CLI
         run: |
           curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
