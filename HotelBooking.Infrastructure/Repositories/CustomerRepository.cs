@@ -16,7 +16,9 @@ public class CustomerRepository : IRepository<Customer>
 
     public int Add(Customer entity)
     {
-        throw new NotImplementedException();
+        _db.Customer.Add(entity);
+        _db.SaveChanges();
+        return entity.Id; 
     }
 
     public bool Edit(Customer entity)

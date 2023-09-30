@@ -16,10 +16,23 @@ public class CustomersController : Controller
     }
 
     // GET: customers
-    [HttpGet]
+    [HttpGet(Name = "GetCustomers")]
     public IEnumerable<Customer> Get()
     {
         return _repository.GetAll();
+    }
+
+    [HttpPost]
+    public IActionResult Post([FromBody] Customer customer) 
+    { 
+        if(customer == null)
+        {
+            return BadRequest();
+        }
+
+        _repository.Add(customer);
+
+        return CreatedAtRoute("GetCustomers", null);
     }
 
 }
