@@ -28,6 +28,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors();
 
     // Initialize the database.
     using (var scope = app.Services.CreateScope())

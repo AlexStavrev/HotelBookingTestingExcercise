@@ -109,7 +109,7 @@ public class BookingManager : IBookingManager
     {
         var booking = _bookingRepository.Get(bookingId);
         
-        if(booking.EndDate <  DateTime.Today && booking.IsActive == false) //perhaps adding & isActive = false for more params
+        if(booking.EndDate < DateTime.Today && booking.IsActive == false) //perhaps adding & isActive = false for more params
         {
             return _bookingRepository.Remove(bookingId);
         }

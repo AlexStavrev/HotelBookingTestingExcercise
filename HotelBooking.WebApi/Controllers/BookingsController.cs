@@ -97,11 +97,11 @@ public class BookingsController : Controller
             return NotFound();
         }
 
-        if (!_bookingManager.CancelCreatedReservation(id))
+        if (_bookingManager.CancelCreatedReservation(id))
         {
-            return BadRequest();
+            return NoContent();
         }
-        return NoContent();
+        return BadRequest();
     }
     
     [HttpDelete("{id}")]
@@ -112,10 +112,11 @@ public class BookingsController : Controller
             return NotFound();
         }
 
-        if (!_bookingManager.RemoveCompletedBooking(id))
+        if (_bookingManager.RemoveCompletedBooking(id))
         {
-            return BadRequest();
+            
+            return NoContent();
         }
-        return NoContent();
+        return BadRequest();
     }
 }
