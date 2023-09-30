@@ -10,6 +10,6 @@ public interface IBookingManager
     List<DateTime> GetFullyOccupiedDates(DateTime startDate, DateTime endDate);
     List<DateTime> GetPartiallyOccupiedDates(DateTime startDate, DateTime endDate);
     bool CancelCreatedReservation(int bookingId);
-    bool RemoveCompletedReservation(int bookingId);
+    bool RemoveCompletedBooking(int bookingId);
     bool ChangeReservation(Booking newBooking);
 }
