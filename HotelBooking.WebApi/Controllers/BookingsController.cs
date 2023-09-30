@@ -97,9 +97,10 @@ public class BookingsController : Controller
             return NotFound();
         }
 
-        var result = _bookingManager.CancelCreatedReservation(id);
-        if (result == false)
+        if (!_bookingManager.CancelCreatedReservation(id))
+        {
             return BadRequest();
+        }
         return NoContent();
     }
     
@@ -111,9 +112,10 @@ public class BookingsController : Controller
             return NotFound();
         }
 
-        var result = _bookingManager.RemoveCompletedBooking(id);
-        if (result == false)
+        if (!_bookingManager.RemoveCompletedBooking(id))
+        {
             return BadRequest();
+        }
         return NoContent();
     }
 }
