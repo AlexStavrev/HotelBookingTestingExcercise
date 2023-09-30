@@ -97,19 +97,25 @@ public class BookingsController : Controller
             return NotFound();
         }
 
-        _bookingManager.CancelCreatedReservation(id);
+        if (!_bookingManager.CancelCreatedReservation(id))
+        {
+            return BadRequest();
+        }
         return NoContent();
     }
     
     [HttpDelete("{id}")]
-    public IActionResult DeleteCompletedResevation(int id)
+    public IActionResult DeleteCompletedBooking(int id)
     {
         if (_bookingRepository.Get(id) == null)
         {
             return NotFound();
         }
 
-        _bookingManager.RemoveCompletedReservation(id);
+        if (!_bookingManager.RemoveCompletedBooking(id))
+        {
+            return BadRequest();
+        }
         return NoContent();
     }
 }

@@ -186,7 +186,7 @@ public class BookingManagerTests
         int validReservationId = 5;
 
         // Act
-        var result = _bookingManager.RemoveCompletedReservation(validReservationId);
+        var result = _bookingManager.RemoveCompletedBooking(validReservationId);
 
         // Assert
         Assert.True(result);
@@ -199,7 +199,7 @@ public class BookingManagerTests
         int incompleteBookingId = 2;
 
         // Act
-        var result = _bookingManager.RemoveCompletedReservation(incompleteBookingId);
+        var result = _bookingManager.RemoveCompletedBooking(incompleteBookingId);
 
         // Assert
         Assert.False(result);
@@ -212,7 +212,7 @@ public class BookingManagerTests
         int futureReservation = 1;
 
         // Act
-        var result = _bookingManager.RemoveCompletedReservation(futureReservation);
+        var result = _bookingManager.RemoveCompletedBooking(futureReservation);
 
         // Assert
         Assert.False(result);

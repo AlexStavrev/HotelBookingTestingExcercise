@@ -105,7 +105,7 @@ public class BookingManager : IBookingManager
         }
         return false;
     }
-    public bool RemoveCompletedReservation(int bookingId)
+    public bool RemoveCompletedBooking(int bookingId)
     {
         var booking = _bookingRepository.Get(bookingId);
         
