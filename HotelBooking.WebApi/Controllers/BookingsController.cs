@@ -90,7 +90,7 @@ public class BookingsController : Controller
 
     // DELETE bookings/5
     [HttpDelete("reservation/{id}")]
-    public IActionResult DeleteCancelledReservation(int id)
+    public IActionResult DeleteCreatedReservation(int id)
     {
         if (_bookingRepository.Get(id) == null)
         {
@@ -102,7 +102,7 @@ public class BookingsController : Controller
     }
     
     [HttpDelete("{id}")]
-    public IActionResult DeleteComplettedResevation(int id)
+    public IActionResult DeleteCompletedResevation(int id)
     {
         if (_bookingRepository.Get(id) == null)
         {
