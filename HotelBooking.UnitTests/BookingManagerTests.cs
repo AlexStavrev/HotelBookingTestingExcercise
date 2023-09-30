@@ -10,6 +10,7 @@ public class BookingManagerTests
 {
     private readonly IBookingManager _bookingManager;
     private readonly Mock<IRepository<Booking>> _fakeBookingRepository;
+    private int _idCounter;
 
     public BookingManagerTests() {
 
@@ -17,21 +18,24 @@ public class BookingManagerTests
         DateTime end = DateTime.Today.AddDays(20);
 
         var bookings = new List<Booking>
-        { 
+        {
             new Booking { Id = 1, StartDate = DateTime.Today.AddDays(1), EndDate = DateTime.Today.AddDays(1), IsActive = true, CustomerId = 1, RoomId = 1 },
             new Booking { Id = 2, StartDate = start, EndDate = end, IsActive = true, CustomerId = 1, RoomId = 1 },
             new Booking { Id = 3, StartDate = start, EndDate = end, IsActive = true, CustomerId = 2, RoomId = 2 },
             new Booking { Id = 4, StartDate = start, EndDate = end, IsActive = false, CustomerId = 1, RoomId = 3 },
             new Booking { Id = 5, StartDate = DateTime.Today.AddDays(-5), EndDate = DateTime.Today.AddDays(-1), IsActive = false, CustomerId = 1, RoomId = 1 },
+            new Booking { Id = 6, StartDate = start, EndDate = end, IsActive = true, CustomerId = 2, RoomId = 3 },
 
         };
+        _idCounter = 5;
+
         var rooms = new List<Room>
         {
             new Room { Id=1, Description="A" },
             new Room { Id=2, Description="B" },
             new Room { Id=3, Description="C" },
         };
-        
+
         _fakeBookingRepository = new Mock<IRepository<Booking>>();
         _fakeBookingRepository.Setup(x => x.GetAll()).Returns(bookings);
         _fakeBookingRepository.Setup(x => x.Get(It.IsAny<int>())).Returns((int bookingId) =>
@@ -85,13 +89,39 @@ public class BookingManagerTests
         var bookingForReturnedRoomId = _fakeBookingRepository.Object.GetAll().Where(
             booking =>
                 booking.RoomId == roomId
-            &&  booking.StartDate <= date
-            &&  booking.EndDate >= date
-            &&  booking.IsActive
+            && booking.StartDate <= date
+            && booking.EndDate >= date
+            && booking.IsActive
             );
 
         // Assert
         Assert.Empty(bookingForReturnedRoomId);
+    }
+
+    public static IEnumerable<object[]> GetDates()
+    {
+        yield return new object[] { DateTime.Today.AddDays(9), DateTime.Today.AddDays(11) };
+        yield return new object[] { DateTime.Today.AddDays(12), DateTime.Today.AddDays(14) };
+        yield return new object[] { DateTime.Today.AddDays(19), DateTime.Today.AddDays(21) };
+        yield return new object[] { DateTime.Today.AddDays(5), DateTime.Today.AddDays(25) };
+    }
+
+    [Theory]
+    [MemberData(nameof(GetDates))]
+    public void ReserveRoom_ShouldReturnFalse_WhenPartOfThePeriodIsFullyReserved(DateTime startDate, DateTime endDate)
+    {
+        //Arrange
+        var newBooking = new Booking()
+        {
+            StartDate = startDate,
+            EndDate = endDate,
+            CustomerId = 1,
+        };
+        //Act
+        int? bookingId = _bookingManager.CreateBooking(newBooking);
+
+        //Assert
+        Assert.Equal(-1, bookingId);
     }
 
     [Fact]
@@ -134,7 +164,7 @@ public class BookingManagerTests
 
         var bookingId = _bookingManager.CreateBooking(newBooking);
 
-        var bookingCustomerId = _fakeBookingRepository.Object.Get(bookingId).CustomerId;
+        var bookingCustomerId = _fakeBookingRepository.Object.Get(bookingId.Value).CustomerId;
 
         //Assert
         Assert.Equal(customerId, bookingCustomerId);

@@ -16,7 +16,7 @@ public class BookingManager : IBookingManager
         _roomRepository = roomRepository;
     }
 
-    public int CreateBooking(Booking booking)
+    public int? CreateBooking(Booking booking)
     {
         int roomId = FindAvailableRoom(booking.StartDate, booking.EndDate);
 

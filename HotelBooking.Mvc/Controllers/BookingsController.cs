@@ -63,7 +63,7 @@ public class BookingsController : Controller
     {
         if (ModelState.IsValid)
         {
-            int createdId = _bookingManager.CreateBooking(booking);
+            int? createdId = _bookingManager.CreateBooking(booking);
 
             if (createdId != -1)
             {
