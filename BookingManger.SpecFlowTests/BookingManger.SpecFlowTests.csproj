@@ -22,4 +22,8 @@
     <Folder Include="Support\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HotelBooking.Core\HotelBooking.Core.csproj" />
+  </ItemGroup>
+
 </Project>
