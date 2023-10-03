@@ -8,3 +8,8 @@ Scenario: Create a booking with a start and an end date
 	And the end date is <endDate>
 	When the booking is created
 	Then the result <bookingId> should be returned 
+
+
+	Examples:
+	| startDate  | endDate    | bookingId |
+	| 2024-10-03 | 2024-10-20 | 4         |

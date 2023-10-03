@@ -80,15 +80,24 @@ namespace HotelBooking.Specs.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Create a booking with a start and an end date")]
+        [Xunit.SkippableTheoryAttribute(DisplayName="Create a booking with a start and an end date")]
         [Xunit.TraitAttribute("FeatureTitle", "CreateBooking")]
         [Xunit.TraitAttribute("Description", "Create a booking with a start and an end date")]
         [Xunit.TraitAttribute("Category", "tag1")]
-        public virtual void CreateABookingWithAStartAndAnEndDate()
+        [Xunit.InlineDataAttribute("2024-10-03", "2024-10-20", "4", new string[0])]
+        public virtual void CreateABookingWithAStartAndAnEndDate(string startDate, string endDate, string bookingId, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "tag1"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("startDate", startDate);
+            argumentsOfScenario.Add("endDate", endDate);
+            argumentsOfScenario.Add("bookingId", bookingId);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a booking with a start and an end date", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
@@ -111,16 +120,16 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 7
- testRunner.Given("the start date is <startDate>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the start date is {0}", startDate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
- testRunner.And("the end date is <endDate>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("the end date is {0}", endDate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 9
  testRunner.When("the booking is created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 10
- testRunner.Then("the result <bookingId> should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the result {0} should be returned", bookingId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
