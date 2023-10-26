@@ -7,8 +7,12 @@ namespace HotelBooking.Infrastructure;
 public class DbInitializer : IDbInitializer
 {
     // This method will create and seed the database.
-    public void Initialize(HotelBookingContext context)
+    public void Initialize(HotelBookingContext context, bool seedData)
     {
+        var customers = new List<Customer> { };
+        var rooms = new List<Room> { };
+        var bookings = new List<Booking> { };
+
         // Delete the database, if it already exists. I do this because an
         // existing database may not be compatible with the entity model,
         // if the entity model was changed since the database was created.
@@ -24,26 +28,30 @@ public class DbInitializer : IDbInitializer
             return;   // DB has been seeded
         }
 
-        List<Customer> customers = new List<Customer>
+        if (seedData)
         {
-            new Customer { Name="John Smith", Email="js@gmail.com" },
-            new Customer { Name="Jane Doe", Email="jd@gmail.com" }
-        };
+            DateTime date = DateTime.Today.AddDays(4);
 
-        List<Room> rooms = new List<Room>
-        {
-            new Room { Description="A" },
-            new Room { Description="B" },
-            new Room { Description="C" }
-        };
+            customers.AddRange(new List<Customer>
+            {
+                new Customer { Name="John Smith", Email="js@gmail.com" },
+                new Customer { Name="Jane Doe", Email="jd@gmail.com" }
+            });
 
-        DateTime date = DateTime.Today.AddDays(4);
-        List<Booking> bookings = new List<Booking>
-        {
-            new Booking { StartDate=date, EndDate=date.AddDays(14), IsActive=true, CustomerId=1, RoomId=1 },
-            new Booking { StartDate=date, EndDate=date.AddDays(14), IsActive=true, CustomerId=2, RoomId=2 },
-            new Booking { StartDate=date, EndDate=date.AddDays(14), IsActive=true, CustomerId=1, RoomId=3 }
-        };
+            rooms.AddRange(new List<Room>
+            {
+                new Room { Description="A" },
+                new Room { Description="B" },
+                new Room { Description="C" }
+            });
+
+            bookings.AddRange(new List<Booking>
+            {
+                new Booking { StartDate=date, EndDate=date.AddDays(14), IsActive=true, CustomerId=1, RoomId=1 },
+                new Booking { StartDate=date, EndDate=date.AddDays(14), IsActive=true, CustomerId=2, RoomId=2 },
+                new Booking { StartDate=date, EndDate=date.AddDays(14), IsActive=true, CustomerId=1, RoomId=3 }
+            });
+        }
 
         context.Customer.AddRange(customers);
         context.Room.AddRange(rooms);

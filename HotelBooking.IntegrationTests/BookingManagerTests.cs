@@ -31,7 +31,7 @@ public class BookingManagerTests : IDisposable
                         .UseSqlite(_connection).Options;
         var dbContext = new HotelBookingContext(options);
         IDbInitializer dbInitializer = new DbInitializer();
-        dbInitializer.Initialize(dbContext);
+        dbInitializer.Initialize(dbContext, true);
 
         // Create repositories and BookingManager
         var bookingRepos = new BookingRepository(dbContext);

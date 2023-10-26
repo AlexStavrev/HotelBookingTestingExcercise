@@ -30,7 +30,7 @@ if (app.Environment.IsDevelopment())
     var services = scope.ServiceProvider;
     var dbContext = services.GetService<HotelBookingContext>();
     var dbInitializer = services.GetService<IDbInitializer>();
-    dbInitializer.Initialize(dbContext);
+    dbInitializer.Initialize(dbContext, true);
 }
 else
 {

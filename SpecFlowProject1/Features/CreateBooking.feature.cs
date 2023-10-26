@@ -84,8 +84,19 @@ namespace HotelBooking.Specs.Features
         [Xunit.TraitAttribute("FeatureTitle", "CreateBooking")]
         [Xunit.TraitAttribute("Description", "Create a booking with a start and an end date")]
         [Xunit.TraitAttribute("Category", "tag1")]
-        [Xunit.InlineDataAttribute("2024-10-03", "2024-10-20", "4", new string[0])]
-        public virtual void CreateABookingWithAStartAndAnEndDate(string startDate, string endDate, string bookingId, string[] exampleTags)
+        [Xunit.InlineDataAttribute("2024-10-03", "2024-10-05", "true", new string[0])]
+        [Xunit.InlineDataAttribute("2024-10-03", "2024-10-21", "false", new string[0])]
+        [Xunit.InlineDataAttribute("2024-10-03", "2024-10-10", "false", new string[0])]
+        [Xunit.InlineDataAttribute("2024-10-03", "2024-10-20", "false", new string[0])]
+        [Xunit.InlineDataAttribute("2024-10-03", "2024-10-02", "false", new string[0])]
+        [Xunit.InlineDataAttribute("2024-10-21", "2024-10-25", "true", new string[0])]
+        [Xunit.InlineDataAttribute("2024-10-23", "2024-10-21", "false", new string[0])]
+        [Xunit.InlineDataAttribute("2024-10-10", "2024-10-03", "false", new string[0])]
+        [Xunit.InlineDataAttribute("2024-10-10", "2024-10-21", "false", new string[0])]
+        [Xunit.InlineDataAttribute("2024-10-10", "2024-10-20", "false", new string[0])]
+        [Xunit.InlineDataAttribute("2024-10-20", "2024-10-18", "false", new string[0])]
+        [Xunit.InlineDataAttribute("2024-10-20", "2024-10-21", "false", new string[0])]
+        public virtual void CreateABookingWithAStartAndAnEndDate(string startDate, string endDate, string bookingCreated, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "tag1"};
@@ -97,7 +108,7 @@ namespace HotelBooking.Specs.Features
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("startDate", startDate);
             argumentsOfScenario.Add("endDate", endDate);
-            argumentsOfScenario.Add("bookingId", bookingId);
+            argumentsOfScenario.Add("bookingCreated", bookingCreated);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a booking with a start and an end date", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
@@ -129,7 +140,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("the booking is created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 10
- testRunner.Then(string.Format("the result {0} should be returned", bookingId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the result {0} should be returned", bookingCreated), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
